@@ -1,2 +1,2 @@
 # Cyberpage_PixelPerfect
-Landing Page for a Cybersecurity centered website.
+Landing Page for a SOC.
