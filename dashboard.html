@@ -14,9 +14,15 @@
 </head>
 
 <body>
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobileOverlay"></div>
+
     <div class="dashboard-container">
         <!-- Sidebar -->
-        <aside class="sidebar">
+        <aside class="sidebar" id="mobileSidebar">
+            <button class="sidebar-close" id="sidebarClose">
+                <i data-lucide="x" size="24"></i>
+            </button>
             <div class="logo" style="margin-bottom: 40px; text-align: center;">
                 <img src="assets/logo.png" alt="socAI Logo" style="max-width: 120px; height: auto;">
             </div>
@@ -33,7 +39,12 @@
         <!-- Main Content -->
         <main class="main-content">
             <header style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
-                <h2>Security Overview</h2>
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <button class="hamburger-btn" id="hamburgerBtn">
+                        <i data-lucide="menu" size="24"></i>
+                    </button>
+                    <h2>Security Overview</h2>
+                </div>
                 <div style="display: flex; align-items: center; gap: 15px;">
                     <button class="btn" style="padding: 8px 16px; font-size: 0.9rem;">Generate Report</button>
                     <div
