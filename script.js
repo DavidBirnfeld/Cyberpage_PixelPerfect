@@ -12,6 +12,52 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Mobile Menu Toggle (Dashboard)
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const sidebarClose = document.getElementById('sidebarClose');
+    const mobileSidebar = document.getElementById('mobileSidebar');
+    const mobileOverlay = document.getElementById('mobileOverlay');
+
+    if (hamburgerBtn && mobileSidebar && mobileOverlay) {
+        // Open sidebar
+        hamburgerBtn.addEventListener('click', () => {
+            mobileSidebar.classList.add('active');
+            mobileOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        // Close sidebar - close button
+        if (sidebarClose) {
+            sidebarClose.addEventListener('click', () => {
+                mobileSidebar.classList.remove('active');
+                mobileOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        }
+
+        // Close sidebar - overlay click
+        mobileOverlay.addEventListener('click', () => {
+            mobileSidebar.classList.remove('active');
+            mobileOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+
+        // Close sidebar on navigation link click
+        const sidebarLinks = mobileSidebar.querySelectorAll('a');
+        sidebarLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileSidebar.classList.remove('active');
+                mobileOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+
+        // Re-initialize Lucide icons for dynamic elements
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+    }
+
     // Dashboard Logic
     if (window.location.pathname.includes('dashboard.html')) {
         initDashboard();
@@ -42,7 +88,7 @@ function initDashboard() {
 
         function drawMap() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
+
             // Draw Nodes
             ctx.fillStyle = 'rgba(0, 243, 255, 0.3)';
             nodes.forEach(node => {
@@ -55,7 +101,7 @@ function initDashboard() {
             if (Math.random() > 0.9) {
                 const start = nodes[Math.floor(Math.random() * nodes.length)];
                 const end = nodes[Math.floor(Math.random() * nodes.length)];
-                
+
                 ctx.beginPath();
                 ctx.moveTo(start.x, start.y);
                 ctx.lineTo(end.x, end.y);
@@ -127,10 +173,10 @@ function initDashboard() {
     setInterval(() => {
         const cpuVal = Math.floor(Math.random() * 30) + 10;
         const memVal = Math.floor(Math.random() * 40) + 30;
-        
+
         document.getElementById('cpu-val').innerText = `${cpuVal}%`;
         document.getElementById('mem-val').innerText = `${memVal}%`;
-        
+
         document.getElementById('cpu-bar').style.width = `${cpuVal}%`;
         document.getElementById('mem-bar').style.width = `${memVal}%`;
     }, 2000);
