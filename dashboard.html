@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>socAI - Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Orbitron:wght@400;700;900&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo" style="margin-bottom: 40px; text-align: center;">soc<span style="color: #fff;">AI</span>
+            </div>
+            <nav>
+                <ul>
+                    <li class="active"><i data-lucide="layout-dashboard" size="20"></i> Dashboard</li>
+                    <li><i data-lucide="alert-triangle" size="20"></i> Incidents <span
+                            style="margin-left: auto; background: #ea0b43; padding: 2px 6px; border-radius: 4px; font-size: 0.8rem;">3</span>
+                    </li>
+                    <li><i data-lucide="map" size="20"></i> Threat Map</li>
+                    <li><i data-lucide="users" size="20"></i> Team</li>
+                    <li><i data-lucide="settings" size="20"></i> Settings</li>
+                    <li><a href="index.html" style="display: flex; gap: 10px; align-items: center;"><i
+                                data-lucide="log-out" size="20"></i> Logout</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+                <h2>Security Overview</h2>
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <button class="btn" style="padding: 8px 16px; font-size: 0.9rem;">Generate Report</button>
+                    <div
+                        style="width: 40px; height: 40px; background: #333; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1px solid #00f3ff;">
+                        <i data-lucide="user" size="20"></i>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Stats Row -->
+            <div class="stats-grid">
+                <div class="stat-card" style="border-left: 4px solid #ea0b43;">
+                    <div>
+                        <div class="stat-value" style="color: #ea0b43;">High</div>
+                        <div class="stat-label">Threat Level</div>
+                    </div>
+                    <i data-lucide="shield-alert" color="#ea0b43" size="32"></i>
+                </div>
+                <div class="stat-card" style="border-left: 4px solid #bc13fe;">
+                    <div>
+                        <div class="stat-value">12</div>
+                        <div class="stat-label">Open Incidents</div>
+                    </div>
+                    <i data-lucide="activity" color="#bc13fe" size="32"></i>
+                </div>
+                <div class="stat-card" style="border-left: 4px solid #00ff9d;">
+                    <div>
+                        <div class="stat-value">98.5%</div>
+                        <div class="stat-label">System Uptime</div>
+                    </div>
+                    <i data-lucide="server" color="#00ff9d" size="32"></i>
+                </div>
+                <div class="stat-card" style="border-left: 4px solid #00f3ff;">
+                    <div>
+                        <div class="stat-value">452</div>
+                        <div class="stat-label">Events / Sec</div>
+                    </div>
+                    <i data-lucide="zap" color="#00f3ff" size="32"></i>
+                </div>
+            </div>
+
+            <div class="grid-3" style="grid-template-columns: 2fr 1fr;">
+                <!-- Main Chart -->
+                <div class="chart-container">
+                    <h3 style="margin-bottom: 20px; font-size: 1.2rem;">Live Attack Traffic</h3>
+                    <canvas id="incidentChart"></canvas>
+                </div>
+
+                <!-- Vulnerabilities -->
+                <div class="chart-container">
+                    <h3 style="margin-bottom: 20px; font-size: 1.2rem;">Vulnerability Scan</h3>
+                    <canvas id="vulnChart"></canvas>
+                </div>
+            </div>
+
+            <div class="grid-3" style="grid-template-columns: 1fr 1fr; margin-top: 20px;">
+                <!-- Threat Map -->
+                <div class="card" style="padding: 20px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+                        <h3>Live Threat Map</h3>
+                        <span style="color: #ea0b43; font-size: 0.9rem; animation: neonPulse 1s infinite alternate;">●
+                            LIVE</span>
+                    </div>
+                    <div id="threatMap">
+                        <canvas id="threatMapCanvas"></canvas>
+                    </div>
+                </div>
+
+                <!-- Team & System Health -->
+                <div style="display: flex; flex-direction: column; gap: 20px;">
+                    <!-- Team -->
+                    <div class="card">
+                        <h3>SOC Team Presence</h3>
+                        <ul class="team-list" style="margin-top: 15px;">
+                            <li>
+                                <div class="user-avatar" style="background: #4a4a6a;">JD</div>
+                                <div>
+                                    <div style="font-weight: bold;">John Doe</div>
+                                    <div style="font-size: 0.8rem; color: #a0a0b0;">Tier 3 Analyst</div>
+                                </div>
+                                <div class="status-dot status-online" style="margin-left: auto;"></div>
+                            </li>
+                            <li>
+                                <div class="user-avatar" style="background: #4a6a5a;">AS</div>
+                                <div>
+                                    <div style="font-weight: bold;">Alice Smith</div>
+                                    <div style="font-size: 0.8rem; color: #a0a0b0;">Tier 2 Analyst</div>
+                                </div>
+                                <div class="status-dot status-busy" style="margin-left: auto;"></div>
+                            </li>
+                            <li>
+                                <div class="user-avatar" style="background: #6a4a4a;">MK</div>
+                                <div>
+                                    <div style="font-weight: bold;">Mike K.</div>
+                                    <div style="font-size: 0.8rem; color: #a0a0b0;">Shift Lead</div>
+                                </div>
+                                <div class="status-dot status-away" style="margin-left: auto;"></div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- System Health -->
+                    <div class="card">
+                        <h3>System Health</h3>
+                        <div style="margin-top: 15px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                <span>CPU Usage</span>
+                                <span id="cpu-val" style="color: #00f3ff;">12%</span>
+                            </div>
+                            <div
+                                style="height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; overflow: hidden;">
+                                <div id="cpu-bar"
+                                    style="height: 100%; width: 12%; background: #00f3ff; transition: width 0.5s;">
+                                </div>
+                            </div>
+                        </div>
+                        <div style="margin-top: 15px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                <span>Memory</span>
+                                <span id="mem-val" style="color: #bd00ff;">45%</span>
+                            </div>
+                            <div
+                                style="height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; overflow: hidden;">
+                                <div id="mem-bar"
+                                    style="height: 100%; width: 45%; background: #bd00ff; transition: width 0.5s;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
